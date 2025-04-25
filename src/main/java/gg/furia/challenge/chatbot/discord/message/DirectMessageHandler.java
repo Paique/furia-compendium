@@ -2,6 +2,7 @@ package gg.furia.challenge.chatbot.discord.message;
 
 import gg.furia.challenge.Main;
 import gg.furia.challenge.chatbot.discord.util.MessageUtil;
+import gg.furia.challenge.config.YamlUtil;
 import gg.furia.challenge.exception.OpenAiException;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
@@ -26,7 +27,7 @@ public class DirectMessageHandler {
      * @param message The message to send
      */
     private static void chatbotHandler(MessageChannelUnion channel, Message message) {
-        if (message.getContentRaw().length() > 70) {
+        if (message.getContentRaw().length() > YamlUtil.getConfig().getOpenai().getMaxCharacters()) {
             message.reply("A mensagem é muito longa, tente novamente com uma mensagem menor.").queue();
             return;
         }

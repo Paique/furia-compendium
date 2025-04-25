@@ -1,6 +1,7 @@
 package gg.furia.challenge.chatbot.discord.util;
 
 import gg.furia.challenge.chatbot.discord.DiscordBot;
+import gg.furia.challenge.config.YamlUtil;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 
@@ -19,7 +20,7 @@ public class MessageUtil {
      * @return A map with the messages and if they are from this bot or not
      */
     public static List<RoleMessage> getMessages(MessageChannelUnion channel, int limit) {
-        return getMessages(channel, limit, 900, false, false).stream()
+        return getMessages(channel, limit, YamlUtil.getConfig().getOpenai().getMaxCharacters(), false, false).stream()
                 .map(msg -> new RoleMessage(
                                 msg.getContentRaw(),
                                 msg.getAuthor().equals(DiscordBot.getJda().getSelfUser())
