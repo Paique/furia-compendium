@@ -15,8 +15,8 @@ dependencies {
     implementation("org.yaml:snakeyaml:${project.snakeYamlVersion}")
 
     // For some reason gradle don't like lombok version in gradle.properties TODO: fix this (Low priority)
-    compileOnly("org.projectlombok:lombok:1.18.38")
-    annotationProcessor("org.projectlombok:lombok:1.18.38")
+    compileOnly("org.projectlombok:lombok:${project.lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok:${project.lombokVersion}")
 }
 
 private static boolean checkClassRedefinition() {
