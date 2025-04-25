@@ -1,6 +1,7 @@
 package gg.furia.challenge;
 
 import gg.furia.challenge.chatbot.discord.DiscordBot;
+import gg.furia.challenge.chatbot.telegram.TelegramBot;
 import gg.furia.challenge.config.YamlUtil;
 import gg.furia.challenge.openai.OpenAi;
 import lombok.Getter;
@@ -11,9 +12,9 @@ public class Main {
 
     public static void main(String[] args) {
         YamlUtil.init("config.yaml");
-
         openAi = new OpenAi();
-        DiscordBot.init();
 
+        DiscordBot.init();
+        TelegramBot.init().start();
     }
 }
