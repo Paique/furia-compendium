@@ -1,0 +1,54 @@
+plugins {
+    id("java")
+    id("com.gradleup.shadow") version "8.3.6"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("net.dv8tion:JDA:${project.jdaVersion}")
+    implementation("org.telegram:telegrambots-meta:${project.telegramVersion}")
+    implementation("org.telegram:telegrambots-longpolling:${project.telegramVersion}")
+    implementation ("com.google.code.gson:gson:${project.gsonVersion}")
+
+    // For some reason gradle don't like lombok version in gradle.properties TODO: fix this (Low priority)
+    compileOnly("org.projectlombok:lombok:1.18.38")
+    annotationProcessor("org.projectlombok:lombok:1.18.38")
+}
+
+private static boolean checkClassRedefinition() {
+    def option = "-XX:+AllowEnhancedClassRedefinition"
+    def process = new ProcessBuilder("java", option, "-version")
+        .redirectErrorStream(true)
+        .start()
+
+    def output = process.inputStream.text
+    process.waitFor()
+
+    return !output.contains("Unrecognized VM option")
+}
+
+allprojects {
+    if (!checkClassRedefinition()) return
+    println "Enabling class redefinition argument for ${project.name} since jvm supports it."
+
+    tasks.withType(JavaExec).configureEach {
+        jvmArgs("-XX:+AllowEnhancedClassRedefinition")
+    }
+}
+
+build {
+    dependsOn(shadowJar)
+}
+
+shadowJar {
+    manifest {
+        attributes("Main-Class": "gg.furia.challenge.Main")
+    }
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
