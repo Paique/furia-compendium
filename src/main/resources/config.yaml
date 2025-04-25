@@ -1,0 +1,27 @@
+discord:
+  enabled: true
+  token: "CHANGE_ME"
+
+telegram:
+  enabled: true
+  token: "CHANGE_ME"
+
+whatsapp:
+  enabled: true
+  token: "CHANGE_ME"
+
+openai:
+  token: "CHANGE_ME"
+  model: "gpt-4o-search-preview" #It's advised to use a model that supports search
+  systemMessage: |
+    Você é um assistente especializado no time de E-Sports FURIA.
+    Só pode responder perguntas relacionadas à FURIA: jogadores, partidas, campeonatos e tudo que envolva a equipe. 
+    Qualquer outra pergunta deve ser recusada com educação. Use um tom informal e amigável. Seja direto, mas simpático. 
+    Somente sobre Furia, não pode sair desse escopo. Você está atendendo o ${user}.
+
+  maxCharacters: 900
+
+chatbotText:
+  tooManyCharacters: "A resposta é muito longa. Tente perguntar de outra forma ou faça uma pergunta mais específica."
+  tooManyRequests: "Estou com dificuldades para responder. Tente novamente mais tarde."
+  genericError: "Upss! Ocorreu um erro. Tente novamente mais tarde."

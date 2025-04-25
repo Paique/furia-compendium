@@ -1,7 +1,7 @@
 package gg.furia.challenge.chatbot.discord;
 
-import gg.furia.challenge.Config;
 import gg.furia.challenge.chatbot.discord.message.JdaEvents;
+import gg.furia.challenge.config.YamlUtil;
 import lombok.Getter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -14,10 +14,10 @@ public class DiscordBot {
     @Getter
     private static JDA jda;
 
-    public static void initJDA() {
+    public static void init() {
         if (jda != null) return;
 
-        jda = JDABuilder.createDefault(Config.getDiscordToken(),
+        jda = JDABuilder.createDefault(YamlUtil.getConfig().getDiscord().getToken(),
                         GatewayIntent.DIRECT_MESSAGES,
                         GatewayIntent.DIRECT_MESSAGE_TYPING,
                         GatewayIntent.DIRECT_MESSAGE_POLLS,

@@ -3,8 +3,9 @@ package gg.furia.challenge.openai;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import gg.furia.challenge.Config;
 import gg.furia.challenge.chatbot.discord.util.MessageUtil;
+import gg.furia.challenge.config.Config;
+import gg.furia.challenge.config.YamlUtil;
 import gg.furia.challenge.exception.OpenAiException;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,11 +24,12 @@ import java.util.List;
 public class OpenAi {
     private String apiKey;
     private URI uri;
-    private ModelTypes model;
+    private String model;
 
     public OpenAi() {
-        this.apiKey = Config.getOpenAiToken();
-        this.model = Config.getOpenAiModel();
+        Config.OpenAIConfig config = YamlUtil.getConfig().getOpenai();
+        this.apiKey = config.getToken();
+        this.model = config.getModel();
         this.uri = URI.create("https://api.openai.com/v1/chat/completions");
     }
 
@@ -91,7 +93,7 @@ public class OpenAi {
         JsonObject requestBody = new JsonObject();
         JsonArray messagesJson = new JsonArray();
 
-        requestBody.addProperty("model", model.getModelName());
+        requestBody.addProperty("model", model);
 
         JsonObject systemMessage = new JsonObject();
         systemMessage.addProperty("role", "system");
