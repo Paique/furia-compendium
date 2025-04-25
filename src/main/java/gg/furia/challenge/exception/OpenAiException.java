@@ -1,10 +1,15 @@
 package gg.furia.challenge.exception;
 
+import gg.furia.challenge.config.Config;
+import gg.furia.challenge.config.YamlUtil;
+
+// Exception only for reference
 public class OpenAiException extends Exception {
+    private static final Config.ChatbotTextConfig config = YamlUtil.getConfig().getChatbotText();
+
     public OpenAiException(int errorCode) {
         super(switch (errorCode) {
-            case 429 -> "Erro 429, estamos experienciando um alto volume de requisições. Tente novamente mais tarde.";
-            case 500 -> "Erro 500, erro interno do servidor. Tente novamente mais tarde.";
+            case 429 -> config.getTooManyRequests();
             default -> "Erro desconhecido, tente novamente mais tarde.";
         });
     }

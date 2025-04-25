@@ -10,6 +10,7 @@ repositories {
 dependencies {
     implementation("net.dv8tion:JDA:${project.jdaVersion}")
     implementation("org.telegram:telegrambots-meta:${project.telegramVersion}")
+    implementation("org.telegram:telegrambots-client:${project.telegramVersion}")
     implementation("org.telegram:telegrambots-longpolling:${project.telegramVersion}")
     implementation ("com.google.code.gson:gson:${project.gsonVersion}")
     implementation("org.yaml:snakeyaml:${project.snakeYamlVersion}")

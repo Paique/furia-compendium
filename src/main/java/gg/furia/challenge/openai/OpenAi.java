@@ -97,7 +97,15 @@ public class OpenAi {
 
         JsonObject systemMessage = new JsonObject();
         systemMessage.addProperty("role", "system");
-        systemMessage.addProperty("content", "Você é um assistente especializado no time de E-Sports FURIA. Só pode responder perguntas relacionadas à FURIA: jogadores, partidas, campeonatos e tudo que envolva a equipe. Qualquer outra pergunta deve ser recusada com educação. Use um tom informal e amigável. Seja direto, mas simpático. Somente sobre Furia, não pode sair desse escopo. Você está falando com o " + username);
+        String systemMessageContent = YamlUtil.getConfig().getOpenai().getSystemMessage();
+
+        System.out.println(username);
+        if (systemMessageContent.contains("${user}")) {
+            systemMessageContent = systemMessageContent.replace("${user}", username);
+        }
+
+        System.out.println("System message: " + systemMessageContent);
+        systemMessage.addProperty("content", systemMessageContent);
         messagesJson.add(systemMessage);
 
         for (MessageUtil.RoleMessage message : messages) {

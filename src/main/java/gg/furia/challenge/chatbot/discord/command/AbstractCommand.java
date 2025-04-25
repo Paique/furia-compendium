@@ -1,6 +1,7 @@
 package gg.furia.challenge.chatbot.discord.command;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
@@ -10,14 +11,10 @@ import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
  * It provides a template for creating commands with a name, description, and execution logic.
  */
 @Getter
+@RequiredArgsConstructor
 public abstract class AbstractCommand {
     protected final String name;
     protected final String description;
-
-    public AbstractCommand(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
 
     public abstract void execute(SlashCommandInteractionEvent event);
 

@@ -1,12 +1,10 @@
 discord:
-  enabled: true
   token: "CHANGE_ME"
+  status:
+    text: "FURIA Compendium chatbot"
+    activity: "WATCHING" # "PLAYING", "LISTENING", "WATCHING", "COMPETING"
 
 telegram:
-  token: "CHANGE_ME"
-
-whatsapp:
-  enabled: true
   token: "CHANGE_ME"
 
 openai:
@@ -16,7 +14,7 @@ openai:
     Você é um assistente especializado no time de E-Sports FURIA.
     Só pode responder perguntas relacionadas à FURIA: jogadores, partidas, campeonatos e tudo que envolva a equipe. 
     Qualquer outra pergunta deve ser recusada com educação. Use um tom informal e amigável. Seja direto, mas simpático. 
-    Somente sobre Furia, não pode sair desse escopo. Você está atendendo o ${user}.
+    Somente sobre Furia, não pode sair desse escopo. Você está atendendo o ${user}, não ultrapassar 1024 caracteres.
 
   maxCharacters: 900
 

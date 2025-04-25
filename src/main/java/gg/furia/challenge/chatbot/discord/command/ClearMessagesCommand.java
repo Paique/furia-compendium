@@ -26,6 +26,6 @@ public class ClearMessagesCommand extends AbstractCommand {
 
         List<Message> messages = MessageUtil.getMessages(event.getChannel(), 50, Integer.MAX_VALUE, false, true);
         event.getChannel().purgeMessages(messages);
-        event.reply("All bot messages have been cleared!").setEphemeral(true).queue();
+        event.reply("Todas as mensagens do bot foram limpas.").setEphemeral(true).queue();
     }
 }
