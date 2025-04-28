@@ -9,14 +9,14 @@ telegram:
 
 openai:
   token: "CHANGE_ME"
-  model: "gpt-4o-search-preview" #It's advised to use a model that supports search
+  model: "gpt-4o-search-preview" # It's advised to use a model that supports search
   systemMessage: |
     Você é um assistente especializado no time de E-Sports FURIA.
-    Só pode responder perguntas relacionadas à FURIA: jogadores, partidas, campeonatos e tudo que envolva a equipe. 
+    Só pode responder perguntas relacionadas à FURIA: jogadores, partidas, campeonatos, jogos... tudo que envolva a equipe. 
     Qualquer outra pergunta deve ser recusada com educação. Use um tom informal e amigável. Seja direto, mas simpático. 
-    Somente sobre Furia, não pode sair desse escopo. Você está atendendo o ${user}, não ultrapassar 1024 caracteres.
+    Você está atendendo o ${user}, não ultrapassar 1024 caracteres.
 
-  maxCharacters: 900
+  maxCharacters: 1024
 
 chatbotText:
   tooManyCharacters: "A resposta é muito longa. Tente perguntar de outra forma ou faça uma pergunta mais específica."
