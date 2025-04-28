@@ -6,6 +6,8 @@ import gg.furia.challenge.config.YamlUtil;
 import gg.furia.challenge.openai.OpenAi;
 import lombok.Getter;
 
+import java.util.logging.Logger;
+
 public class Main {
     @Getter
     private static OpenAi openAi;

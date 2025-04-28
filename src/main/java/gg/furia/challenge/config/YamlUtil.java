@@ -1,7 +1,9 @@
 package gg.furia.challenge.config;
 
+import gg.furia.challenge.exception.EmptyTokenException;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -16,6 +18,7 @@ import java.nio.file.StandardCopyOption;
  * It loads the configuration into a Config object.
  * @see Config
  */
+@Slf4j
 public class YamlUtil {
     private static YamlUtil instance;
     private final File yamlFile;
@@ -59,8 +62,28 @@ public class YamlUtil {
         try (InputStream in = Files.newInputStream(yamlFile.toPath())) {
             Yaml yaml = new Yaml();
             config = yaml.loadAs(in, Config.class);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to load YAML file", e);
+            checkTokens(config);
+        } catch (IOException | EmptyTokenException e) {
+            log.error(e.getMessage());
+            System.exit(1);
+        }
+    }
+
+    private void checkTokens(Config config) throws EmptyTokenException {
+        String discordToken = config.getDiscord().getToken();
+        String telegramToken = config.getTelegram().getToken();
+        String openAiToken = config.getOpenai().getToken();
+
+        if (discordToken == null || discordToken.isEmpty()) {
+            throw new EmptyTokenException("Discord token is empty");
+        }
+
+        if (telegramToken == null || telegramToken.isEmpty()) {
+            throw new EmptyTokenException("Telegram token is empty");
+        }
+
+        if (openAiToken == null || openAiToken.isEmpty()) {
+            throw new EmptyTokenException("OpenAI token is empty");
         }
     }
 }

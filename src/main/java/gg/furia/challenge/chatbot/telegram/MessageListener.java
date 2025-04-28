@@ -7,6 +7,7 @@ import gg.furia.challenge.exception.OpenAiException;
 import gg.furia.challenge.openai.OpenAi;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
 import org.telegram.telegrambots.longpolling.util.LongPollingSingleThreadUpdateConsumer;
 import org.telegram.telegrambots.meta.api.methods.send.SendChatAction;
@@ -16,19 +17,15 @@ import org.telegram.telegrambots.meta.api.objects.message.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
-import java.io.IOException;
 import java.util.List;
 
-/**
- * Refactored MessageListener with clearer separation of concerns, dependency injection,
- * and improved readability.
- */
+
 @RequiredArgsConstructor
+@Slf4j
 public class MessageListener implements LongPollingSingleThreadUpdateConsumer {
 
     private static final long MAX_AGE_SECONDS = 10;
     private static final String DEFAULT_USERNAME = "Furioso";
-
     private final TelegramClient telegramClient;
     private final OpenAi openAiService;
 
@@ -50,7 +47,8 @@ public class MessageListener implements LongPollingSingleThreadUpdateConsumer {
             String generated = openAiService.generateText(List.of(new MessageUtil.RoleMessage(userText, false)), username);
             sendMessage(chatId, generated);
         } catch (OpenAiException e) {
-            sendMessage(chatId, e.getMessage());
+            sendMessage(chatId, YamlUtil.getConfig().getChatbotText().getGenericError());
+            log.error(e.getMessage());
         }
     }
 

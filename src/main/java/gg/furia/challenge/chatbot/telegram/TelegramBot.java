@@ -3,9 +3,13 @@ package gg.furia.challenge.chatbot.telegram;
 import gg.furia.challenge.config.YamlUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication;
 
+import java.util.logging.Logger;
+
 @RequiredArgsConstructor
+@Slf4j
 public class TelegramBot {
     private final TelegramBotsLongPollingApplication application;
     private final String botToken;
@@ -26,7 +30,7 @@ public class TelegramBot {
             try {
                 application.close();
             } catch (Exception e) {
-                System.out.println("Error shutting down Telegram bot: " + e.getMessage());
+                log.error("Error while shutting down Telegram bot: {}", e.getMessage());
             }
         }));
 

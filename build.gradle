@@ -14,8 +14,8 @@ dependencies {
     implementation("org.telegram:telegrambots-longpolling:${project.telegramVersion}")
     implementation ("com.google.code.gson:gson:${project.gsonVersion}")
     implementation("org.yaml:snakeyaml:${project.snakeYamlVersion}")
+    implementation("ch.qos.logback:logback-classic:${project.logbackVersion}")
 
-    // For some reason gradle don't like lombok version in gradle.properties TODO: fix this (Low priority)
     compileOnly("org.projectlombok:lombok:${project.lombokVersion}")
     annotationProcessor("org.projectlombok:lombok:${project.lombokVersion}")
 }

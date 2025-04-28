@@ -4,6 +4,7 @@ import gg.furia.challenge.chatbot.discord.message.JdaEvents;
 import gg.furia.challenge.config.Config;
 import gg.furia.challenge.config.YamlUtil;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -11,6 +12,7 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 @Getter
+@Slf4j
 public class DiscordBot {
     @Getter
     private static JDA jda;
@@ -35,5 +37,6 @@ public class DiscordBot {
 
         CommandRegistry commandRegistry = CommandRegistry.create(jda);
         commandRegistry.registerAllCommands();
+        log.info("Discord Bot initialized");
     }
 }

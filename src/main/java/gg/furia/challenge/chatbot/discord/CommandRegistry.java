@@ -1,8 +1,10 @@
 package gg.furia.challenge.chatbot.discord;
+
 import gg.furia.challenge.chatbot.discord.command.AbstractCommand;
 import gg.furia.challenge.chatbot.discord.command.ClearMessagesCommand;
 import gg.furia.challenge.chatbot.discord.command.CreateDirectMessageCommand;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDA;
 
 import java.util.HashMap;
@@ -11,6 +13,7 @@ import java.util.Map;
 /**
  * CommandRegistry is a singleton class that manages the registration of slash commands for JDA.
  */
+@Slf4j
 public class CommandRegistry {
     @Getter
     private static final Map<String, AbstractCommand> commands = new HashMap<>();
@@ -33,6 +36,7 @@ public class CommandRegistry {
     public void registerAllCommands() {
         if (registered) return;
         jda.updateCommands().addCommands(commands.values().stream().map(AbstractCommand::getSlashCommandData).toList()).queue();
+        log.info("Registered commands: {}", jda.retrieveCommands().complete());
         registered = true;
     }
 
@@ -43,7 +47,7 @@ public class CommandRegistry {
      */
     private static AbstractCommand register(AbstractCommand command) {
         if (registered) throw new IllegalStateException("Commands already registered");
-        System.out.println("Adding command " + command.getName() + " to registry");
+        log.info("Adding command {} to registry", command.getName());
         commands.put(command.getName(), command);
         return command;
     }

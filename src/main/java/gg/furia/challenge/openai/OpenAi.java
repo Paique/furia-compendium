@@ -6,9 +6,12 @@ import com.google.gson.JsonParser;
 import gg.furia.challenge.chatbot.discord.util.MessageUtil;
 import gg.furia.challenge.config.Config;
 import gg.furia.challenge.config.YamlUtil;
+import gg.furia.challenge.exception.InvalidResponseException;
 import gg.furia.challenge.exception.OpenAiException;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.net.URI;
@@ -21,16 +24,21 @@ import java.util.List;
 
 @Getter
 @Setter
+@Slf4j
 public class OpenAi {
     private String apiKey;
     private URI uri;
     private String model;
+
+    @Getter(AccessLevel.NONE)
+    private Config config;
 
     public OpenAi() {
         Config.OpenAIConfig config = YamlUtil.getConfig().getOpenai();
         this.apiKey = config.getToken();
         this.model = config.getModel();
         this.uri = URI.create("https://api.openai.com/v1/chat/completions");
+        this.config = YamlUtil.getConfig();
     }
 
     public String generateText(List<MessageUtil.RoleMessage> roleMessage, String username) throws OpenAiException {
@@ -44,19 +52,22 @@ public class OpenAi {
 
             HttpRequest request = buildRequest(body);
             response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+
+            if (response.statusCode() != 200) {
+                throw new InvalidResponseException("API returned status code: " + response.statusCode());
+            }
+
         } catch (IOException | InterruptedException e) {
-            throw new OpenAiException(e);
+            throw new OpenAiException("Error while sending request to OpenAI API", e);
         }
 
-        if (response.statusCode() != 200) {
-            throw new OpenAiException(response.statusCode());
-        }
+
 
         JsonObject jsonResponse = JsonParser.parseString(response.body()).getAsJsonObject();
         JsonArray choices = jsonResponse.getAsJsonArray("choices");
 
         if (choices == null || choices.isEmpty()) {
-            throw new OpenAiException("Resposta da API não contém opções válidas.");
+            throw new InvalidResponseException("OpenAI API response does not contain choices");
         }
 
         JsonObject firstChoice = choices.get(0).getAsJsonObject();
@@ -99,12 +110,12 @@ public class OpenAi {
         systemMessage.addProperty("role", "system");
         String systemMessageContent = YamlUtil.getConfig().getOpenai().getSystemMessage();
 
-        System.out.println(username);
+        log.info("User: {}, Message {}", username, systemMessageContent);
+
         if (systemMessageContent.contains("${user}")) {
             systemMessageContent = systemMessageContent.replace("${user}", username);
         }
 
-        System.out.println("System message: " + systemMessageContent);
         systemMessage.addProperty("content", systemMessageContent);
         messagesJson.add(systemMessage);
 

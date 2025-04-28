@@ -20,7 +20,7 @@ public class ClearMessagesCommand extends AbstractCommand {
     @Override
     public void execute(SlashCommandInteractionEvent event) {
         if (event.getChannel().getType() != ChannelType.PRIVATE) {
-            event.reply("This command can only be used in direct messages.").setEphemeral(true).queue();
+            event.reply("Este comando somente pode ser utilizado em mensagens diretas").setEphemeral(true).queue();
             return;
         }
 
