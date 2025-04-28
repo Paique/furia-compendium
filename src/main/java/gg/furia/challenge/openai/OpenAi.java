@@ -41,6 +41,13 @@ public class OpenAi {
         this.config = YamlUtil.getConfig();
     }
 
+    /**
+     * Generates text using the OpenAI API.
+     * @param roleMessage A list of messages to be sent to the API.
+     * @param username The username of the user making the request.
+     * @return The generated text from the API.
+     * @throws OpenAiException If an error occurs while sending the request to the API.
+     */
     public String generateText(List<MessageUtil.RoleMessage> roleMessage, String username) throws OpenAiException {
         JsonObject requestBody = prepareRequestBody(roleMessage, username);
         String body = requestBody.toString();
