@@ -1,14 +1,17 @@
+# It's recommended to set the tokens as environment variables.
+# Leave them blank to use that feature
+
 discord:
-  token: "CHANGE_ME"
+  token: "" # Same as setting DISCORD_TOKEN env variable
   status:
     text: "FURIA Compendium chatbot"
     activity: "WATCHING" # "PLAYING", "LISTENING", "WATCHING", "COMPETING"
 
 telegram:
-  token: "CHANGE_ME"
+  token: "" # Same as setting TELEGRAM_TOKEN env variable
 
 openai:
-  token: "CHANGE_ME"
+  token: "" # Same as setting OPENAI_TOKEN env variable
   model: "gpt-4o-search-preview" # It's advised to use a model that supports search
   systemMessage: |
     Você é um assistente especializado no time de E-Sports FURIA.

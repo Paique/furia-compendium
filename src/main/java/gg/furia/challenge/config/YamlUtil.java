@@ -38,6 +38,7 @@ public class YamlUtil {
     public static void init(String filePath) {
         if (instance == null) {
             instance = new YamlUtil(filePath);
+            log.info("Loaded config file: {}", filePath);
         }
     }
 
@@ -62,28 +63,10 @@ public class YamlUtil {
         try (InputStream in = Files.newInputStream(yamlFile.toPath())) {
             Yaml yaml = new Yaml();
             config = yaml.loadAs(in, Config.class);
-            checkTokens(config);
+            EnvConfig.applyEnvironmentOverrides();
         } catch (IOException | EmptyTokenException e) {
             log.error(e.getMessage());
             System.exit(1);
-        }
-    }
-
-    private void checkTokens(Config config) throws EmptyTokenException {
-        String discordToken = config.getDiscord().getToken();
-        String telegramToken = config.getTelegram().getToken();
-        String openAiToken = config.getOpenai().getToken();
-
-        if (discordToken == null || discordToken.isEmpty()) {
-            throw new EmptyTokenException("Discord token is empty");
-        }
-
-        if (telegramToken == null || telegramToken.isEmpty()) {
-            throw new EmptyTokenException("Telegram token is empty");
-        }
-
-        if (openAiToken == null || openAiToken.isEmpty()) {
-            throw new EmptyTokenException("OpenAI token is empty");
         }
     }
 }
