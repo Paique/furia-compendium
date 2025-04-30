@@ -1,3 +1,4 @@
+[![wakatime](https://wakatime.com/badge/user/018b7451-863e-4e38-9986-5ce4dbc57d25/project/0535c562-848c-4681-a4e2-c583904c97d8.svg)](https://wakatime.com/badge/user/018b7451-863e-4e38-9986-5ce4dbc57d25/project/0535c562-848c-4681-a4e2-c583904c97d8)
 # Furia Compendium
 **Furia Compendium** é um chatbot que integra APIs do OpenAI, Discord e Telegram para fornecer informações especializadas sobre o time de E-Sports **FURIA**. Desenvolvido como parte do desafio para a vaga de Assistente de Engenharia de Software da FURIA.
 
