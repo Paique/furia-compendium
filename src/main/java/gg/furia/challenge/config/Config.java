@@ -54,6 +54,7 @@ public class Config {
         private String tooManyCharacters;
         private String tooManyRequests;
         private String genericError;
+        private String startMessage;
     }
 }
 

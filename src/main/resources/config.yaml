@@ -22,3 +22,7 @@ chatbotText:
   tooManyCharacters: "A resposta é muito longa. Tente perguntar de outra forma ou faça uma pergunta mais específica."
   tooManyRequests: "Estou com dificuldades para responder. Tente novamente mais tarde."
   genericError: "Upss! Ocorreu um erro. Tente novamente mais tarde."
+  startMessage: | 
+    Faala Furioso! Eu sou o assistente da FURIA!!! 🐾
+    Eu posso te ajudar com informações sobre o time como jogadores, partidas, até mesmo onde assistir, ou te dizer onde comprar uma camiseta! 
+    É só me contar o que precisa!

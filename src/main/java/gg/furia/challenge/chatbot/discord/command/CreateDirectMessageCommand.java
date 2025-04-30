@@ -1,5 +1,6 @@
 package gg.furia.challenge.chatbot.discord.command;
 
+import gg.furia.challenge.config.YamlUtil;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
@@ -17,7 +18,7 @@ public class CreateDirectMessageCommand extends AbstractCommand {
     public void execute(SlashCommandInteractionEvent event) {
         User user = event.getUser();
         user.openPrivateChannel().queue((channel) -> {
-            channel.sendMessage("Faaala FURIOSO, me chamou? Estou aqui para ajudar!").queue();
+            channel.sendMessage(YamlUtil.getConfig().getChatbotText().getStartMessage()).queue();
         });
         event.reply("A DM foi enviada! ✉️⬆️").setEphemeral(true).queue();
     }
