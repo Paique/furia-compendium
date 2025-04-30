@@ -18,6 +18,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
 import java.util.List;
+import java.util.Objects;
 
 
 @RequiredArgsConstructor
@@ -43,9 +44,15 @@ public class MessageListener implements LongPollingSingleThreadUpdateConsumer {
 
         sendTypingAction(chatId);
 
+
+        if (Objects.equals(userText, "/start")) {
+            sendMessage(chatId, YamlUtil.getConfig().getChatbotText().getStartMessage());
+            return;
+        }
+
         try {
-            String generated = openAiService.generateText(List.of(new MessageUtil.RoleMessage(userText, false)), username);
-            sendMessage(chatId, generated);
+            String messageToSend = openAiService.generateText(List.of(new MessageUtil.RoleMessage(userText, false)), username);
+            sendMessage(chatId, messageToSend);
         } catch (OpenAiException e) {
             sendMessage(chatId, YamlUtil.getConfig().getChatbotText().getGenericError());
             log.error(e.getMessage());
