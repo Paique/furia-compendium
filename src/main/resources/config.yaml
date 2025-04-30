@@ -22,7 +22,7 @@ openai:
   maxCharacters: 1024
 
 chatbotText:
-  tooManyCharacters: "A resposta é muito longa. Tente perguntar de outra forma ou faça uma pergunta mais específica."
+  tooManyCharacters: "O texto é muito longo. Tente resumir ou dividi-lo em partes menores."
   tooManyRequests: "Estou com dificuldades para responder. Tente novamente mais tarde."
   genericError: "Upss! Ocorreu um erro. Tente novamente mais tarde."
   startMessage: | 
