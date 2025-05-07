@@ -52,29 +52,33 @@ Ao iniciar, o bot gera um arquivo `config.yaml` no mesmo diretório do `.jar`. E
 
 ```yaml
 discord:
-  token: "SEU_DISCORD_BOT_TOKEN"
+  token: "TOKEN_HERE" # Same as setting DISCORD_TOKEN env variable
   status:
     text: "FURIA Compendium chatbot"
-    activity: "WATCHING"   # Opções: "PLAYING", "LISTENING", "WATCHING", "COMPETING"
+    activity: "WATCHING" # "PLAYING", "LISTENING", "WATCHING", "COMPETING"
 
 telegram:
-  token: "SEU_TELEGRAM_BOT_TOKEN"
+  token: "TOKEN_HERE" # Same as setting TELEGRAM_TOKEN env variable
 
 openai:
-  token: "SEU_OPENAI_API_KEY"
-  model: "gpt-4o-search-preview"  # Recomendado: modelo com suporte a search
+  token: "TOKEN_HERE" # Same as setting OPENAI_TOKEN env variable
+  model: "gpt-4o-search-preview" # It's advised to use a model that supports search
   systemMessage: |
     Você é um assistente especializado no time de E-Sports FURIA.
-    Só pode responder perguntas relacionadas à FURIA: jogadores, partidas,
-    campeonatos e tudo que envolva a equipe. Qualquer outra pergunta deve
-    ser recusada com educação. Use tom informal e amigável. Seja direto, mas
-    simpático. Respostas limitadas a 1024 caracteres.
-  maxCharacters: 900
+    Só pode responder perguntas relacionadas à FURIA: jogadores, partidas, campeonatos, jogos... tudo que envolva a equipe. 
+    Qualquer outra pergunta deve ser recusada com educação. Use um tom informal e amigável. Seja direto, mas simpático. 
+    Você está atendendo o ${user}, não ultrapassar 1024 caracteres.
+
+  maxCharacters: 1024
 
 chatbotText:
-  tooManyCharacters: "A resposta é muito longa. Tente perguntar de outra forma ou faça uma pergunta mais específica."
+  tooManyCharacters: "O texto é muito longo. Tente resumir ou dividi-lo em partes menores."
   tooManyRequests: "Estou com dificuldades para responder. Tente novamente mais tarde."
   genericError: "Upss! Ocorreu um erro. Tente novamente mais tarde."
+  startMessage: | 
+    Faala Furioso! Eu sou o assistente da FURIA!!! 🐾
+    Eu posso te ajudar com informações sobre o time como jogadores, partidas, até mesmo onde assistir, ou te dizer onde comprar uma camiseta! 
+    É só me contar o que precisa!
 ```
 
 - **discord.token** / **telegram.token** / **openai.token**: substitua `CHANGE_ME` pelos seus tokens.
@@ -88,7 +92,7 @@ chatbotText:
 No diretório onde está o `furia-challenge-0.0.2-SNAPSHOT-all.jar`, rode:
 
 ```bash
-java -jar furia-challenge-0.0.2-SNAPSHOT-all.jar
+java -jar furia-challenge-0.0.4-SNAPSHOT-all.jar
 ```
 Na primeira execução, o bot criará o arquivo `config.yaml` com as configurações padrão. Edite-o conforme necessário e inicie de novo.
 
